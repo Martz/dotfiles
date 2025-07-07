@@ -1,7 +1,14 @@
+[alias]
+	
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch --all
+	remotes = remote --verbose
+
 # This is Git's per-user configuration file.
 [user]
 	name = Martin Palastanga
 	email = palastanga@gmail.com
-# Please adapt and uncomment the following lines:
-#	name = Martin Palastanga
-#	email = palastanga@gmail.com
+
+[init]
+	defaultBranch = main
