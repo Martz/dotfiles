@@ -129,3 +129,4 @@ source <(fzf --zsh)
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 . "$HOME/.local/bin/env"
+eval "$(gh copilot alias -- zsh)"
