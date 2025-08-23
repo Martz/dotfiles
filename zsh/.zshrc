@@ -79,7 +79,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions kubectl-autocomplete)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions kubectl-autocomplete mkcd)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -119,10 +119,20 @@ export PATH="/Users/martinpalastanga/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+#export NVM_DIR="$HOME/.nvm"
+#  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+#  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+
+# Instead of loading NVM immediately, load it on demand
+export NVM_DIR="$HOME/.nvm"
+nvm() {
+  unset -f nvm
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+  nvm "$@"
+}
+  
 export PATH=$HOME/development/flutter/bin:$PATH
 
 source <(fzf --zsh)
@@ -130,3 +140,50 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 . "$HOME/.local/bin/env"
 eval "$(gh copilot alias -- zsh)"
+
+# Task Master aliases added on 17/07/2025
+alias tm='task-master'
+alias taskmaster='task-master'
+alias cls=clear
+
+# Python Environment Configuration
+# =================================
+
+# Pyenv configuration for Python version management
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# Pyenv-virtualenv for virtual environment management
+eval "$(pyenv virtualenv-init -)"
+
+# Python and pip aliases for convenience
+alias python='python3'
+alias pip='pip3'
+
+# Virtual environment shortcuts
+alias venv='python3 -m venv'
+alias activate='source venv/bin/activate'
+alias deactivate='deactivate 2>/dev/null || echo "No virtual environment active"'
+
+# Quick virtual environment creation and activation
+mkvenv() {
+    if [ -z "$1" ]; then
+        echo "Creating virtual environment in ./venv"
+        python3 -m venv venv
+        source venv/bin/activate
+    else
+        echo "Creating virtual environment in ./$1"
+        python3 -m venv "$1"
+        source "$1/bin/activate"
+    fi
+    echo "Virtual environment activated. Use 'deactivate' to exit."
+}
+
+# List installed Python versions
+alias pylist='pyenv versions'
+
+# Show current Python version
+alias pyversion='python --version'
+
+. "$HOME/.turso/env"
