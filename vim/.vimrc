@@ -60,3 +60,6 @@ vnoremap <Up> <Nop>
 vnoremap <Down> <Nop>
 vnoremap <Left> <Nop>
 vnoremap <Right> <Nop>
+
+set relativenumber
+set number
