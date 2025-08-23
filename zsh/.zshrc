@@ -115,7 +115,7 @@ alias vim="nvim"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/martinpalastanga/.rd/bin:$PATH"
+export PATH="$HOME/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 

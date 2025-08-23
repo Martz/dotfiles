@@ -8,7 +8,8 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Martin Palastanga
-	email = palastanga@gmail.com
+	# Email should be set per-machine using:
+	# git config --global user.email "your-email@example.com"
 
 [init]
 	defaultBranch = main
