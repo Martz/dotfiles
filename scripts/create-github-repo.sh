@@ -50,10 +50,7 @@ else
     gh repo create "$REPO_NAME" --public --source=. --remote=origin
 fi
 
-# Set up main branch tracking
-git branch --set-upstream-to=origin/main main
-
-# Push to GitHub
+# Push to GitHub (this also sets up tracking)
 git push -u origin main
 
 echo ""
