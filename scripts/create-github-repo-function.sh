@@ -39,23 +39,23 @@ create-github-repo() {
     cd "$REPO_NAME" || return 1
 
     # Initialize git repository
-    git init -b main || { cd ..; return 1; }
+    git init -b main || { cd ..; rm -rf "$REPO_NAME"; return 1; }
     echo "# $REPO_NAME" > README.md
 
     # Create initial commit
     git add README.md
-    git commit -m "Initial commit" || { cd ..; return 1; }
+    git commit -m "Initial commit" || { cd ..; rm -rf "$REPO_NAME"; return 1; }
 
     # Create GitHub repository (public)
     echo "Creating public GitHub repository..."
     if [ -n "$REPO_DESC" ]; then
-        gh repo create "$REPO_NAME" --public --source=. --remote=origin --description "$REPO_DESC" || { cd ..; return 1; }
+        gh repo create "$REPO_NAME" --public --source=. --remote=origin --description "$REPO_DESC" || { cd ..; rm -rf "$REPO_NAME"; return 1; }
     else
-        gh repo create "$REPO_NAME" --public --source=. --remote=origin || { cd ..; return 1; }
+        gh repo create "$REPO_NAME" --public --source=. --remote=origin || { cd ..; rm -rf "$REPO_NAME"; return 1; }
     fi
 
     # Push to GitHub (this also sets up tracking)
-    git push -u origin main || { cd ..; return 1; }
+    git push -u origin main || { cd ..; rm -rf "$REPO_NAME"; return 1; }
 
     echo ""
     echo "✓ Repository created successfully!"
