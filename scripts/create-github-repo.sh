@@ -35,7 +35,18 @@ mkdir "$REPO_NAME"
 cd "$REPO_NAME"
 
 # Initialize git repository
-git init -b main
+# Check git version and use appropriate init syntax
+GIT_VERSION=$(git --version | awk '{print $3}')
+# Function to compare versions: returns 0 if $1 >= $2
+version_ge() {
+    [ "$(printf '%s\n' "$2" "$1" | sort -V | head -n1)" = "$2" ]
+}
+if version_ge "$GIT_VERSION" "2.28.0"; then
+    git init -b main
+else
+    git init
+    git branch -m main
+fi
 echo "# $REPO_NAME" > README.md
 
 # Create initial commit
