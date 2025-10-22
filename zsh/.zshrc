@@ -186,4 +186,7 @@ alias pylist='pyenv versions'
 # Show current Python version
 alias pyversion='python --version'
 
+# GitHub repository creation function
+[ -f "$HOME/dotfiles/scripts/create-github-repo-function.sh" ] && source "$HOME/dotfiles/scripts/create-github-repo-function.sh"
+
 . "$HOME/.turso/env"
